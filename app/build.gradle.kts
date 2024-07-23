@@ -66,4 +66,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // for adding recyclerview
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    // for adding cardview
+    implementation("androidx.cardview:cardview:1.0.0")
 }
