@@ -2,46 +2,43 @@ package com.example.recycle_view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.recycle_view.ui.theme.Recycle_viewTheme
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.recycle_view.adapter.CustomAdapter
+import com.example.recycle_view.data.ItemsViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            Recycle_viewTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        // getting the recyclerview by its ids
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+
+        // this create a vertical layout manager
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // ArrayList of class ItemViewModel
+
+        val data = ArrayList<ItemsViewModel>()
+
+        // this loop will create 20 Views containing
+        // the image with the count of view
+
+        for (i in 1..20){
+            data.add(
+                ItemsViewModel(R.drawable.ic_baseline_folder_shared_24, "Item $i"),
+            )
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        // this will pass the ArrayList to our adapter
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Recycle_viewTheme {
-        Greeting("Android")
+        val adapter = CustomAdapter(data)
+
+        // setting the Adapter with the recycleView
+
+        recyclerView.adapter = adapter
     }
 }
